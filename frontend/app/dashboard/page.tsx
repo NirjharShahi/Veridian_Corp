@@ -27,9 +27,12 @@ export default function Dashboard() {
   useEffect(() => {
     async function loadData() {
       try {
+        const API_URL =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
         const [requestsResponse, ticketsResponse] = await Promise.all([
-          fetch("http://localhost:5000/api/employee-requests"),
-          fetch("http://localhost:5000/api/tickets"),
+          fetch(`${API_URL}/api/employee-requests`),
+          fetch(`${API_URL}/api/tickets`),
         ]);
 
         const requestsData = await requestsResponse.json();
@@ -54,6 +57,7 @@ export default function Dashboard() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <Header />
+
       <div className="mx-auto max-w-7xl px-6 py-10">
         <header className="mb-10">
           <p className="text-sm font-medium text-blue-400">VERIDIAN CORP</p>
@@ -65,7 +69,6 @@ export default function Dashboard() {
           </p>
         </header>
 
-        {/* Summary cards */}
         <div className="grid gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
             <p className="text-sm text-slate-400">Employee Requests</p>
@@ -92,7 +95,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Employee Requests */}
         <section className="mt-8 rounded-2xl border border-slate-800 bg-slate-900 p-6">
           <div className="mb-5">
             <h2 className="text-xl font-semibold">Employee Requests</h2>
@@ -141,7 +143,6 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {/* Tickets */}
         <section className="mt-8 rounded-2xl border border-slate-800 bg-slate-900 p-6">
           <div className="mb-5">
             <h2 className="text-xl font-semibold">Ticket Queue</h2>
@@ -188,6 +189,7 @@ export default function Dashboard() {
           </div>
         </section>
       </div>
+
       <Footer />
     </main>
   );

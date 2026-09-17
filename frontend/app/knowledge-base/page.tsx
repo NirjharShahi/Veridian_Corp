@@ -19,11 +19,13 @@ export default function KnowledgeBase() {
   useEffect(() => {
     async function loadKnowledgeBase() {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/knowledge-base",
-        );
+        const API_URL =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+        const response = await fetch(`${API_URL}/api/knowledge-base`);
 
         const data = await response.json();
+
         setItems(data.data);
       } catch (error) {
         console.error("Failed to load knowledge base:", error);
@@ -38,6 +40,7 @@ export default function KnowledgeBase() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <Header />
+
       <div className="mx-auto max-w-6xl px-6 py-10">
         <header className="mb-8">
           <p className="text-sm font-medium text-blue-400">VERIDIAN CORP</p>
@@ -85,6 +88,7 @@ export default function KnowledgeBase() {
           </div>
         )}
       </div>
+
       <Footer />
     </main>
   );

@@ -23,13 +23,16 @@ export default function Home() {
     setDecision(null);
 
     try {
-      const response = await fetch("http://localhost:5000/api/agent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/agent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message }),
         },
-        body: JSON.stringify({ message }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Agent request failed");
@@ -73,7 +76,7 @@ export default function Home() {
             </a>
           </div>
         </nav>
-        {/* Header */}
+
         <header className="mb-10">
           <div className="mb-2 text-sm font-medium text-blue-400">
             VERIDIAN CORP
@@ -89,7 +92,6 @@ export default function Home() {
           </p>
         </header>
 
-        {/* Chat Card */}
         <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
           <div className="mb-6">
             <h2 className="text-lg font-semibold">How can I help?</h2>
@@ -139,7 +141,6 @@ export default function Home() {
           </form>
         </section>
 
-        {/* Agent Result */}
         {decision && (
           <section className="mt-6 rounded-2xl border border-slate-800 bg-slate-900 p-6">
             <div className="mb-5 flex items-center justify-between">
@@ -193,7 +194,6 @@ export default function Home() {
           </section>
         )}
 
-        {/* Architecture hint */}
         <footer className="mt-auto pt-10 text-center text-xs text-slate-600">
           Retrieval → AI Reasoning → Policy Validation → Decision
         </footer>
